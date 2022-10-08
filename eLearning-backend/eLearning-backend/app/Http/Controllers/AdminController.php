@@ -15,6 +15,24 @@ class AdminController extends Controller
         ]);
     }
 
+    public function getUsers($id = null)
+    {
+        $data = 'No Data';
+        $status = 'No Users Found';
+
+        if (!$id) {
+            $data =  User::all();
+            $status = "Returning All";
+        } else {
+            $data = User::find($id);
+            $status = "Returning ID " . $id;
+        }
+
+        return response()->json([
+            "Status" => $status,
+            "Data" => $data
+        ]);
+    }
 
     public function addUser(Request $request)
     {
