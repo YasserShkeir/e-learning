@@ -32,6 +32,12 @@ class AdminController extends Controller
     // Add User - Except Admin
     public function addUser(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
         $user = new User;
 
         $user->name = $request['name'];
@@ -71,6 +77,10 @@ class AdminController extends Controller
     // Returns users sorted by name based on Initials, request includes user type
     public function getSortedUsers(Request $request)
     {
+        $request->validate([
+            'userType' => 'required',
+        ]);
+
         $message = 'Cannot Sort';
         $res = 'Error in user Type chosen';
 
@@ -97,6 +107,7 @@ class AdminController extends Controller
         ]);
     }
 
+    // Get a single course if an ID is given, all courses otherwise
     public function getCourses($id = null)
     {
         $data = 'No Data';
@@ -116,8 +127,15 @@ class AdminController extends Controller
         ]);
     }
 
+    // Add a course
     public function addCourse(Request $request)
     {
+        $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'credits' => 'required',
+        ]);
+
         $course = new Course;
 
         $course->code = $request['code'];
