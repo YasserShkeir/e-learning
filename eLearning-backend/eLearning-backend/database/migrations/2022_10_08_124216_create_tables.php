@@ -40,6 +40,15 @@ return new class extends Migration
             $table->json('tasks');
             $table->timestamps();
         });
+        Schema::create('announcements', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('instructor_id');
+            $table->string('instructorName');
+            $table->string('courseCode');
+            $table->string('text');
+            $table->timestamps();
+        });
     }
 
     public function down()
