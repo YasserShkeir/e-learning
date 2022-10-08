@@ -33,4 +33,29 @@ class InstructorController extends Controller
             'Student' => $user
         ]);
     }
+
+    public function createAssignment(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'courseCode' => 'required',
+            'dueDate' => 'required',
+            'tasks' => 'required'
+        ]);
+
+        $assignment = new Assignment;
+
+        $assignment->title = $request['title'];
+        // $assignment->instructor_id = $request['instructor_id'];
+        // $assignment->instructorName = $request['instructorName'];
+        $assignment->courseCode = $request['courseCode'];
+        $assignment->dueDate = $request['dueDate'];
+        $assignment->tasks = $request['tasks'];
+
+        $assignment->save();
+        return response()->json([
+            'Message' => 'Added Assignment',
+            'Assignment' => $assignment
+        ]);
+    }
 }

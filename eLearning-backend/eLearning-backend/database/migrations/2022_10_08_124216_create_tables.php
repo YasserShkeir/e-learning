@@ -33,9 +33,9 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('instructor_id')->references('_id')->on("users");
-            $table->string('instructorName')->references('name')->on("users");
-            $table->string('courseCode')->references('code')->on("courses");
+            $table->string('instructor_id');
+            $table->string('instructorName');
+            $table->string('courseCode');
             $table->date('dueDate');
             $table->json('tasks');
             $table->timestamps();
