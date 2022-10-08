@@ -35,6 +35,26 @@ class InstructorController extends Controller
         ]);
     }
 
+    public function addCourse(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'course' => 'required'
+        ]);
+
+        $id = $request['id'];
+        $student = User::findOrFail($id);
+        $studentArray = json_decode($student->get());
+        $studentCourses = $studentArray[0]->courses;
+        array_push($studentCourses, $request['course']);
+        $student->update(['courses' => $studentCourses]);
+
+        return response()->json([
+            'Message' => 'Student Updated',
+            'Student' => $student
+        ]);
+    }
+
     public function createAssignment(Request $request)
     {
         $request->validate([

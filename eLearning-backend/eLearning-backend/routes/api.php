@@ -13,4 +13,6 @@ Route::get('/getCourses', [AdminController::class, 'getCourses']);
 Route::post('/addCourse', [AdminController::class, 'addCourse']);
 
 Route::post('/addStudent', [InstructorController::class, 'addStudent']);
+Route::post('/addCourse', [InstructorController::class, 'addCourse']);
 Route::post('/createAssignment', [InstructorController::class, 'createAssignment']);
+Route::post('/createAnnouncement', [InstructorController::class, 'createAnnouncement']);
