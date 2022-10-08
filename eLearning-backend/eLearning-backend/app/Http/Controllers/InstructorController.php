@@ -59,4 +59,27 @@ class InstructorController extends Controller
             'Assignment' => $assignment
         ]);
     }
+
+    public function createAnnouncement(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'courseCode' => 'required',
+            'text' => 'required'
+        ]);
+
+        $announcement = new Announcement;
+
+        $announcement->title = $request['title'];
+        // $assignment->instructor_id = $request['instructor_id'];
+        // $assignment->instructorName = $request['instructorName'];
+        $announcement->courseCode = $request['courseCode'];
+        $announcement->text = $request['text'];
+
+        $announcement->save();
+        return response()->json([
+            'Message' => 'Added Announcement',
+            'Announcement' => $announcement
+        ]);
+    }
 }
