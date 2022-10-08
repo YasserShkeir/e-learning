@@ -15,6 +15,7 @@ class AdminController extends Controller
         ]);
     }
 
+    // Get User based on ID
     public function getUsers($id = null)
     {
         $data = 'No Data';
@@ -34,39 +35,40 @@ class AdminController extends Controller
         ]);
     }
 
+    // Add User - Except Admin
     public function addUser(Request $request)
     {
+        $user = new User;
+
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = $request['password'];
+
+        // Add Instructor
         if ($request['userType'] == 2) {
-            $instructor = new User;
+            $user->courses = $request['courses'];
+            $user->userType = $request['userType'];
 
-            $instructor->name = $request['name'];
-            $instructor->email = $request['email'];
-            $instructor->password = $request['password'];
-            $instructor->courses = $request['courses'];
-            $instructor->userType = $request['userType'];
-
-            $instructor->save();
+            $user->save();
             return response()->json([
                 'Message' => 'Added Instructor',
-                'Instructor' => $instructor
+                'Instructor' => $user
             ]);
         }
+
+        // Add Student
         if ($request['userType'] == 3) {
-            $student = new User;
+            $user->enrolledCourses = $request['enrolledCourses'];
+            $user->assignments = $request['assignments'];
+            $user->userType = $request['userType'];
 
-            $student->name = $request['name'];
-            $student->email = $request['email'];
-            $student->password = $request['password'];
-            $student->enrolledCourses = $request['enrolledCourses'];
-            $student->assignments = $request['assignments'];
-            $student->userType = $request['userType'];
-
-            $student->save();
+            $user->save();
             return response()->json([
                 'Message' => 'Added Student',
-                'Student' => $student
+                'Student' => $user
             ]);
         }
+
         return response()->json([
             'Message' => 'No User Added'
         ]);
