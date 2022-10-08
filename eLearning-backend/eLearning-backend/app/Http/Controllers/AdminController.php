@@ -4,17 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Course;
 use App\Models\User;
 
 class AdminController extends Controller
 {
-    public function getAdmins()
-    {
-        return response()->json([
-            'admin' => Admin::all()
-        ]);
-    }
-
     // Get User based on ID
     public function getUsers($id = null)
     {
@@ -100,6 +94,25 @@ class AdminController extends Controller
         return response()->json([
             'Message' => $message,
             'Results' => $res
+        ]);
+    }
+
+    public function getCourses($id = null)
+    {
+        $data = 'No Data';
+        $status = 'No Courses Found';
+
+        if (!$id) {
+            $data =  Course::all();
+            $status = "Returning All";
+        } else {
+            $data = Course::find($id);
+            $status = "Returning ID " . $id;
+        }
+
+        return response()->json([
+            "Status" => $status,
+            "Data" => $data
         ]);
     }
 }

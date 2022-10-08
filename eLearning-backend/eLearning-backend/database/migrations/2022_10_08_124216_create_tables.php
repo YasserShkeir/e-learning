@@ -23,28 +23,20 @@ return new class extends Migration
             $table->string('password');
             $table->timestamps();
         });
-        // Schema::create('instructors', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('name');
-        //     $table->string('password');
-        //     $table->string('userType')->default('instructor');
-        //     $table->json('courses');
-        //     $table->timestamps();
-        // });
-        // Schema::create('students', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('name');
-        //     $table->string('password');
-        //     $table->string('userType')->default('student');
-        //     $table->json('enrolledCourses');
-        //     $table->json('assignments');
-        //     $table->timestamps();
-        // });
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id();
+            $table->string('code')->unique();
+            $table->string('Name');
+            $table->integer('credits');
+            $table->timestamps();
+        });
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('instructorName');
-            $table->string('courseName');
+            $table->string('instructor_id')->references('_id')->on("users");
+            $table->string('instructorName')->references('name')->on("users");
+            $table->string('course_id')->references('_id')->on("courses");;
+            $table->string('courseName')->references('name')->on("courses");;;
             $table->date('dueDate');
             $table->json('tasks');
             $table->timestamps();

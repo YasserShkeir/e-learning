@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model;
 
-class User extends Model
+class Course extends Model
 {
     protected $connection = 'mongodb';
-    protected $collection = 'users';
+    protected $collection = 'courses';
 }
