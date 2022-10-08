@@ -26,7 +26,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('Name');
+            $table->string('name');
             $table->integer('credits');
             $table->timestamps();
         });
@@ -35,8 +35,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('instructor_id')->references('_id')->on("users");
             $table->string('instructorName')->references('name')->on("users");
-            $table->string('course_id')->references('_id')->on("courses");;
-            $table->string('courseName')->references('name')->on("courses");;;
+            $table->string('courseCode')->references('code')->on("courses");
             $table->date('dueDate');
             $table->json('tasks');
             $table->timestamps();
