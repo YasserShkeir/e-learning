@@ -15,7 +15,7 @@ class User extends Authenticatable implements JWTSubject
 {
     protected $connection = 'mongodb';
     protected $collection = 'users';
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'enrolledCourses'];
 
     public function getJWTIdentifier()
     {

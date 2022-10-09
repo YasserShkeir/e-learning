@@ -48,6 +48,7 @@ class InstructorController extends Controller
     public function updateStudentCourses(Request $request)
     {
         $currUser = Auth::user();
+
         if ($currUser['userType'] == 2) {
             $request->validate([
                 'id' => 'required',
@@ -58,29 +59,36 @@ class InstructorController extends Controller
             $id = $request['id'];
             $type = $request['type'];
             $message = "Unaffected";
-            $student = User::findOrFail($id);
-            $studentArray = json_decode($student->get());
-            $studentCourses = $studentArray[0]->courses;
+            $student = User::find($id);
+            if ($student['userType'] == 3) {
+                $studentArray = json_decode($student);
+                $studentCourses = $studentArray->enrolledCourses;
 
-            if ($request['type'] == 'add') {
-                $message = "Added";
-                array_push($studentCourses, $request['course']);
-                $student->update(['courses' => $studentCourses]);
-            }
-            if ($request['type'] == 'del') {
-                $message = "Deleted";
-                if (($key = array_search($request['course'], $studentCourses)) !== false) {
-                    unset($studentCourses[$key]);
+                if ($request['type'] == 'add') {
+                    $message = "Added";
+                    array_push($studentCourses, $request['course']);
+                    $student->update(['enrolledCourses' => $studentCourses]);
                 }
-                $studentCourses = array_values($studentCourses);
-                $student->update(['courses' => $studentCourses]);
-            }
+                if ($request['type'] == 'del') {
+                    $message = "Not Found";
+                    if (($key = array_search($request['course'], $studentCourses)) !== false) {
+                        unset($studentCourses[$key]);
+                        $message = "Deleted";
+                    }
+                    $studentCourses = array_values($studentCourses);
+                    $student->update(['enrolledCourses' => $studentCourses]);
+                }
 
-            return response()->json([
-                'Message' => 'Student ' . $message,
-                'Type' => $type,
-                'Student' => $student
-            ]);
+                return response()->json([
+                    'Message' => 'Course ' . $message,
+                    'Type' => $type,
+                    'Student' => $student
+                ]);
+            } else {
+                return response()->json([
+                    'Message' => 'Can edit only Students'
+                ]);
+            }
         }
 
         return response()->json([
