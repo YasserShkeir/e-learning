@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
 use App\Models\Course;
 use App\Models\User;
 
@@ -43,6 +42,16 @@ class AdminController extends Controller
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->password = $request['password'];
+
+        // Add Admin
+        if ($request['userType'] == 1) {
+
+            $user->save();
+            return response()->json([
+                'Message' => 'Added Admin',
+                'Admin' => $user
+            ]);
+        }
 
         // Add Instructor
         if ($request['userType'] == 2) {

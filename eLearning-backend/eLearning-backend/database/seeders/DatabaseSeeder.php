@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Admin;
 use App\Models\Announcement;
 use App\Models\Assignment;
 use App\Models\Course;
@@ -17,20 +16,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //
-        $admin1 = new Admin;
+        $admin1 = new User;
 
         $admin1->name = 'Admin 1';
         $admin1->email = 'admin1@email.com';
         $admin1->password = Hash::make('test');
+        $admin1->userType = '1';
 
         $admin1->save();
 
         //
-        $admin2 = new Admin;
+        $admin2 = new User;
 
         $admin2->name = 'Admin 2';
         $admin2->email = 'admin2@email.com';
         $admin2->password = Hash::make('test');
+        $admin2->userType = '1';
 
         $admin2->save();
 
