@@ -177,13 +177,23 @@ class AdminController extends Controller
             'credits' => 'required',
         ]);
 
-        $course = new Course;
+        $currUser = Auth::user();
 
-        $course->code = $request['code'];
-        $course->name = $request['name'];
-        $course->credits = $request['credits'];
+        if ($currUser['userType'] != 1) {
+            $course = new Course;
 
-        $course->save();
+            $course->code = $request['code'];
+            $course->name = $request['name'];
+            $course->credits = $request['credits'];
+
+            $course->save();
+        } else {
+            return response()->json([
+                'Message' => 'Not an Admin'
+            ]);
+        }
+
+
         return response()->json([
             'Message' => 'Added Course',
             'Course' => $course
