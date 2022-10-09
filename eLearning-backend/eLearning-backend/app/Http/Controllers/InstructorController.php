@@ -89,6 +89,10 @@ class InstructorController extends Controller
                     'Message' => 'Can edit only Students'
                 ]);
             }
+        } else {
+            return response()->json([
+                'Message' => 'Not an instructor'
+            ]);
         }
 
         return response()->json([
@@ -98,28 +102,40 @@ class InstructorController extends Controller
 
     public function createAssignment(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'courseCode' => 'required',
-            'dueDate' => 'required',
-            'tasks' => 'required'
-        ]);
+        $currUser = Auth::user();
 
-        $assignment = new Assignment;
+        if ($currUser['userType'] == 2) {
+            $request->validate([
+                'title' => 'required',
+                'courseCode' => 'required',
+                'dueDate' => 'required',
+                'tasks' => 'required'
+            ]);
 
-        $assignment->title = $request['title'];
-        // $assignment->instructor_id = $request['instructor_id'];
-        // $assignment->instructorName = $request['instructorName'];
-        // $assignment->course_id = $request['course_id'];
-        $assignment->courseCode = $request['courseCode'];
-        $assignment->dueDate = $request['dueDate'];
-        $assignment->tasks = $request['tasks'];
-        $assignment->submittedBy = [];
+            $assignment = new Assignment;
 
-        $assignment->save();
+            $assignment->title = $request['title'];
+            $assignment->instructor_id = $currUser['_id'];
+            $assignment->instructorName = $currUser['name'];
+            // $assignment->course_id = $request['course_id'];
+            $assignment->courseCode = $request['courseCode'];
+            $assignment->dueDate = $request['dueDate'];
+            $assignment->tasks = $request['tasks'];
+            $assignment->submittedBy = [];
+
+            $assignment->save();
+            return response()->json([
+                'Message' => 'Added Assignment',
+                'Assignment' => $assignment
+            ]);
+        } else {
+            return response()->json([
+                'Message' => 'Not an Instructor'
+            ]);
+        }
+
         return response()->json([
-            'Message' => 'Added Assignment',
-            'Assignment' => $assignment
+            'Message' => 'Error'
         ]);
     }
 
