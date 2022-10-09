@@ -88,6 +88,7 @@ class InstructorController extends Controller
         $assignment->courseCode = $request['courseCode'];
         $assignment->dueDate = $request['dueDate'];
         $assignment->tasks = $request['tasks'];
+        $assignment->submittedBy = [];
 
         $assignment->save();
         return response()->json([

@@ -35,9 +35,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('instructor_id');
             $table->string('instructorName');
+            $table->string('course_id');
             $table->string('courseCode');
             $table->date('dueDate');
             $table->json('tasks');
+            $table->json('submittedBy');
             $table->timestamps();
         });
         Schema::create('announcements', function (Blueprint $table) {
@@ -45,6 +47,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('instructor_id');
             $table->string('instructorName');
+            $table->string('course_id');
             $table->string('courseCode');
             $table->string('text');
             $table->timestamps();
