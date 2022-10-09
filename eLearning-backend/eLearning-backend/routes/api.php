@@ -7,19 +7,30 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
+});
 
-Route::post('/getsorted', [AdminController::class, 'getSortedUsers']);
-Route::post('/addUser', [AdminController::class, 'addUser']);
-Route::get('/getUsers/{id?}', [AdminController::class, 'getUsers']);
-Route::get('/getCourses/{id?}', [AdminController::class, 'getCourses']);
-Route::get('/getCourses', [AdminController::class, 'getCourses']);
-Route::post('/addCourse', [AdminController::class, 'addCourse']);
+Route::group(["middleware" => "auth:api"], function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::post('getsorted', 'getsorted');
+        Route::post('addUser', 'addUser');
+        Route::get('/getUsers/{id?}', 'getUsers');
+        Route::get('/getCourses/{id?}', 'getCourses');
+        Route::post('addCourse', 'addCourse');
+    });
 
-Route::post('/addStudent', [InstructorController::class, 'addStudent']);
-Route::post('/updateStudentCourses', [InstructorController::class, 'updateStudentCourses']);
-Route::post('/createAssignment', [InstructorController::class, 'createAssignment']);
-Route::post('/createAnnouncement', [InstructorController::class, 'createAnnouncement']);
+    Route::controller(InstructorController::class)->group(function () {
+        Route::post('addStudent', 'addStudent');
+        Route::post('updateStudentCourses', 'updateStudentCourses');
+        Route::post('createAssignment', 'createAssignment');
+        Route::post('createAnnouncement', 'createAnnouncement');
+    });
 
-Route::get('/viewAssignment/{id?}', [StudentController::class, 'viewAssignment']);
+    Route::controller(StudentController::class)->group(function () {
+        Route::get('/viewAssignment/{id?}', 'viewAssignment');
+    });
+});
