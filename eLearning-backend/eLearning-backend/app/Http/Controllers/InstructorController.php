@@ -141,25 +141,33 @@ class InstructorController extends Controller
 
     public function createAnnouncement(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'courseCode' => 'required',
-            'text' => 'required'
-        ]);
+        $currUser = Auth::user();
 
-        $announcement = new Announcement;
+        if ($currUser['userType'] == 2) {
+            $request->validate([
+                'title' => 'required',
+                'courseCode' => 'required',
+                'text' => 'required'
+            ]);
 
-        $announcement->title = $request['title'];
-        // $assignment->instructor_id = $request['instructor_id'];
-        // $assignment->instructorName = $request['instructorName'];
-        // $assignment->course_id = $request['course_id'];
-        $announcement->courseCode = $request['courseCode'];
-        $announcement->text = $request['text'];
+            $announcement = new Announcement;
 
-        $announcement->save();
+            $announcement->title = $request['title'];
+            $announcement->instructor_id = $currUser['_id'];
+            $announcement->instructorName = $currUser['name'];
+            // $announcement->course_id = $request['course_id'];
+            $announcement->courseCode = $request['courseCode'];
+            $announcement->text = $request['text'];
+
+            $announcement->save();
+            return response()->json([
+                'Message' => 'Added Announcement',
+                'Announcement' => $announcement
+            ]);
+        }
+
         return response()->json([
-            'Message' => 'Added Announcement',
-            'Announcement' => $announcement
+            'Message' => 'Error'
         ]);
     }
 }
