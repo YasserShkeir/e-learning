@@ -47,37 +47,44 @@ class InstructorController extends Controller
 
     public function updateStudentCourses(Request $request)
     {
-        $request->validate([
-            'id' => 'required',
-            'course' => 'required',
-            'type' => 'required'
-        ]);
+        $currUser = Auth::user();
+        if ($currUser['userType'] == 2) {
+            $request->validate([
+                'id' => 'required',
+                'course' => 'required',
+                'type' => 'required'
+            ]);
 
-        $id = $request['id'];
-        $type = $request['type'];
-        $message = "Unaffected";
-        $student = User::findOrFail($id);
-        $studentArray = json_decode($student->get());
-        $studentCourses = $studentArray[0]->courses;
+            $id = $request['id'];
+            $type = $request['type'];
+            $message = "Unaffected";
+            $student = User::findOrFail($id);
+            $studentArray = json_decode($student->get());
+            $studentCourses = $studentArray[0]->courses;
 
-        if ($request['type'] == 'add') {
-            $message = "Added";
-            array_push($studentCourses, $request['course']);
-            $student->update(['courses' => $studentCourses]);
-        }
-        if ($request['type'] == 'del') {
-            $message = "Deleted";
-            if (($key = array_search($request['course'], $studentCourses)) !== false) {
-                unset($studentCourses[$key]);
+            if ($request['type'] == 'add') {
+                $message = "Added";
+                array_push($studentCourses, $request['course']);
+                $student->update(['courses' => $studentCourses]);
             }
-            $studentCourses = array_values($studentCourses);
-            $student->update(['courses' => $studentCourses]);
+            if ($request['type'] == 'del') {
+                $message = "Deleted";
+                if (($key = array_search($request['course'], $studentCourses)) !== false) {
+                    unset($studentCourses[$key]);
+                }
+                $studentCourses = array_values($studentCourses);
+                $student->update(['courses' => $studentCourses]);
+            }
+
+            return response()->json([
+                'Message' => 'Student ' . $message,
+                'Type' => $type,
+                'Student' => $student
+            ]);
         }
 
         return response()->json([
-            'Message' => 'Student ' . $message,
-            'Type' => $type,
-            'Student' => $student
+            'Message' => 'Error'
         ]);
     }
 
