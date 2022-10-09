@@ -1,7 +1,7 @@
 .mainForm {
   display: flex;
   flex-direction: column;
-  height: 100px;
+  height: fit-content;
   border: 1px solid black;
   min-width: 500px;
   width: 50%;

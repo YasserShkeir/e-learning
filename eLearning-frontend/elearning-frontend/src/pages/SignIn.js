@@ -1,6 +1,7 @@
 import { useState, useEffect, React } from "react";
 import classes from "./SignIn.module.css";
 import StateButton from "../components/signIn/stateButton";
+import FormData from "../components/signIn/FormData";
 
 function SignInPage() {
   const [selectState, setSelectState] = useState(false);
@@ -25,6 +26,7 @@ function SignInPage() {
         <StateButton text={"Sign In"} onClick={displaySignIn} />
         <StateButton text={"Sign Up"} onClick={displaySignUp} />
       </div>
+      <FormData state={selectState} />
     </div>
   );
 }
