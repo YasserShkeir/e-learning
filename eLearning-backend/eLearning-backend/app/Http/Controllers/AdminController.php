@@ -145,15 +145,21 @@ class AdminController extends Controller
     // Get a single course if an ID is given, all courses otherwise
     public function getCourses($id = null)
     {
+        $currUser = Auth::user();
+
         $data = 'No Data';
         $status = 'No Courses Found';
 
-        if (!$id) {
-            $data =  Course::all();
-            $status = "Returning All";
+        if ($currUser['userType'] == 1) {
+            if (!$id) {
+                $data =  Course::all();
+                $status = "Returning All";
+            } else {
+                $data = Course::find($id);
+                $status = "Returning ID " . $id;
+            }
         } else {
-            $data = Course::find($id);
-            $status = "Returning ID " . $id;
+            $status = 'Not an admin';
         }
 
         return response()->json([
