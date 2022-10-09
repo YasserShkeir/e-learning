@@ -6,32 +6,42 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Assignment;
 use App\Models\Announcement;
+use Illuminate\Support\Facades\Auth;
 
 class InstructorController extends Controller
 {
     public function addStudent(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'enrolledCourses' => 'required',
-            'assignments' => 'required'
-        ]);
+        $currUser = Auth::user();
 
-        $user = new User;
+        if ($currUser['userType'] == 2) {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'enrolledCourses' => 'required',
+                'assignments' => 'required'
+            ]);
 
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $user->password = $request['password'];
-        $user->enrolledCourses = $request['enrolledCourses'];
-        $user->assignments = $request['assignments'];
-        $user->userType = "3";
+            $user = new User;
 
-        $user->save();
+            $user->name = $request['name'];
+            $user->email = $request['email'];
+            $user->password = $request['password'];
+            $user->enrolledCourses = $request['enrolledCourses'];
+            $user->assignments = $request['assignments'];
+            $user->userType = "3";
+
+            $user->save();
+
+            return response()->json([
+                'Message' => 'Added Student',
+                'Student' => $user
+            ]);
+        }
+
         return response()->json([
-            'Message' => 'Added Student',
-            'Student' => $user
+            'Message' => 'Error'
         ]);
     }
 
