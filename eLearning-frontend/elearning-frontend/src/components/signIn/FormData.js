@@ -1,11 +1,15 @@
 import { React } from "react";
 import FormRow from "../signIn/FormRow";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const FormData = ({ state }) => {
+  let navigate = useNavigate();
   // Success Router
   const successRouter = (userType) => {
     if (userType == 1) {
       console.log("Going to Admin Portal...");
+      navigate("/admin");
+      <Navigate replace to="/admin" />;
     }
     if (userType == 2) {
       console.log("Going to Instructor Portal...");
@@ -34,9 +38,9 @@ const FormData = ({ state }) => {
     const data = await res.json();
 
     if (data.authorisation.token) {
-      successRouter(data.user.userType);
+      localStorage.setItem("id", data.user._id);
       localStorage.setItem("jwt", data.authorisation.token);
-      console.log(data);
+      successRouter(data.user.userType);
     }
   };
 
@@ -60,9 +64,9 @@ const FormData = ({ state }) => {
     const data = await res.json();
 
     if (data.authorisation.token) {
-      successRouter(data.user.userType);
+      localStorage.setItem("id", data.user._id);
       localStorage.setItem("jwt", data.authorisation.token);
-      console.log(data.user.userType);
+      successRouter(data.user.userType);
     }
   };
 
