@@ -85,6 +85,7 @@ class InstructorController extends Controller
         $assignment->title = $request['title'];
         // $assignment->instructor_id = $request['instructor_id'];
         // $assignment->instructorName = $request['instructorName'];
+        // $assignment->course_id = $request['course_id'];
         $assignment->courseCode = $request['courseCode'];
         $assignment->dueDate = $request['dueDate'];
         $assignment->tasks = $request['tasks'];
@@ -110,6 +111,7 @@ class InstructorController extends Controller
         $announcement->title = $request['title'];
         // $assignment->instructor_id = $request['instructor_id'];
         // $assignment->instructorName = $request['instructorName'];
+        // $assignment->course_id = $request['course_id'];
         $announcement->courseCode = $request['courseCode'];
         $announcement->text = $request['text'];
 
