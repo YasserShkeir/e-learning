@@ -3,8 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
 Route::post('/getsorted', [AdminController::class, 'getSortedUsers']);
 Route::post('/addUser', [AdminController::class, 'addUser']);
