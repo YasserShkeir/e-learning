@@ -8,6 +8,7 @@ use App\Models\Assignment;
 
 class StudentController extends Controller
 {
+    // Student should view only assignmnets for courses relevant to his
     public function viewAssignment($id = null)
     {
         $data = 'No Data';
@@ -26,4 +27,6 @@ class StudentController extends Controller
             "Data" => $data
         ]);
     }
+
+    // Student can submit an assignment -> Needs authentication
 }
