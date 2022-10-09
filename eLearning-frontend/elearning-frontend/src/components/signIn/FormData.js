@@ -2,6 +2,19 @@ import { React } from "react";
 import FormRow from "../signIn/FormRow";
 
 const FormData = ({ state }) => {
+  // Success Router
+  const successRouter = (userType) => {
+    if (userType == 1) {
+      console.log("Going to Admin Portal...");
+    }
+    if (userType == 2) {
+      console.log("Going to Instructor Portal...");
+    }
+    if (userType == 3) {
+      console.log("Going to Student Portal...");
+    }
+  };
+
   // Call Sign In Here
   const callSignIn = async () => {
     let email = document.getElementById("signInEmail");
@@ -21,6 +34,7 @@ const FormData = ({ state }) => {
     const data = await res.json();
 
     if (data.authorisation.token) {
+      successRouter(data.user.userType);
       localStorage.setItem("jwt", data.authorisation.token);
       console.log(data);
     }
@@ -46,8 +60,9 @@ const FormData = ({ state }) => {
     const data = await res.json();
 
     if (data.authorisation.token) {
+      successRouter(data.user.userType);
       localStorage.setItem("jwt", data.authorisation.token);
-      console.log(data);
+      console.log(data.user.userType);
     }
   };
 
