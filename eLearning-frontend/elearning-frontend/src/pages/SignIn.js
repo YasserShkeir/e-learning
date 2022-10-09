@@ -9,14 +9,12 @@ function SignInPage() {
   const displaySignIn = () => {
     if (!selectState) {
       setSelectState(!selectState);
-      console.log(selectState);
     }
   };
 
   const displaySignUp = () => {
     if (selectState) {
       setSelectState(!selectState);
-      console.log(selectState);
     }
   };
 

@@ -1,3 +1,6 @@
-.FormRow {
-  background-color: red;
+.row {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 10px;
 }
