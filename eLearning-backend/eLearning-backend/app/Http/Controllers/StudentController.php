@@ -25,15 +25,11 @@ class StudentController extends Controller
                 $data = Assignment::find($id);
                 $status = "Returning ID " . $id;
             }
-
-            return response()->json([
-                "Status" => $status,
-                "Data" => $data
-            ]);
         }
 
         return response()->json([
-            "Status" => 'Error'
+            "Status" => $status,
+            "Data" => $data
         ]);
     }
 

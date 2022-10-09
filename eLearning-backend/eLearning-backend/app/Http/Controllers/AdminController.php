@@ -53,15 +53,13 @@ class AdminController extends Controller
         $user->email = $request['email'];
         $user->password = $request['password'];
 
+        $message = 'Error';
+
         if ($currUser['userType'] == 1) {
             // Add Admin
             if ($request['userType'] == 1) {
-
                 $user->save();
-                return response()->json([
-                    'Message' => 'Added Admin',
-                    'Admin' => $user
-                ]);
+                $message = 'Added Admin';
             }
 
             // Add Instructor
@@ -70,10 +68,7 @@ class AdminController extends Controller
                 $user->userType = $request['userType'];
 
                 $user->save();
-                return response()->json([
-                    'Message' => 'Added Instructor',
-                    'Instructor' => $user
-                ]);
+                $message = 'Added Instructor';
             }
 
             // Add Student
@@ -83,15 +78,13 @@ class AdminController extends Controller
                 $user->userType = $request['userType'];
 
                 $user->save();
-                return response()->json([
-                    'Message' => 'Added Student',
-                    'Student' => $user
-                ]);
+                $message = 'Added Student';
             }
         }
 
         return response()->json([
-            'Message' => 'Error'
+            'Message' => $message,
+            'User' => $user
         ]);
     }
 
@@ -178,24 +171,21 @@ class AdminController extends Controller
         ]);
 
         $currUser = Auth::user();
+        $course = new Course;
 
         if ($currUser['userType'] != 1) {
-            $course = new Course;
-
             $course->code = $request['code'];
             $course->name = $request['name'];
             $course->credits = $request['credits'];
 
             $course->save();
         } else {
-            return response()->json([
-                'Message' => 'Not an Admin'
-            ]);
+            $message = 'Not an Admin';
         }
 
 
         return response()->json([
-            'Message' => 'Added Course',
+            'Message' => $message,
             'Course' => $course
         ]);
     }

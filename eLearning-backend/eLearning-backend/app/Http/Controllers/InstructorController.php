@@ -14,6 +14,9 @@ class InstructorController extends Controller
     {
         $currUser = Auth::user();
 
+        $message = 'Error';
+        $user = new User;
+
         if ($currUser['userType'] == 2) {
             $request->validate([
                 'name' => 'required',
@@ -22,8 +25,6 @@ class InstructorController extends Controller
                 'enrolledCourses' => 'required',
                 'assignments' => 'required'
             ]);
-
-            $user = new User;
 
             $user->name = $request['name'];
             $user->email = $request['email'];
@@ -34,14 +35,12 @@ class InstructorController extends Controller
 
             $user->save();
 
-            return response()->json([
-                'Message' => 'Added Student',
-                'Student' => $user
-            ]);
+            $message = 'Added Student';
         }
 
         return response()->json([
-            'Message' => 'Error'
+            'Message' => $message,
+            'Student' => $user
         ]);
     }
 
@@ -81,7 +80,6 @@ class InstructorController extends Controller
 
                 return response()->json([
                     'Message' => 'Course ' . $message,
-                    'Type' => $type,
                     'Student' => $student
                 ]);
             } else {
