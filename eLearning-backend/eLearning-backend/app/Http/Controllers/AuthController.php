@@ -89,4 +89,19 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+    public function getSelf()
+    {
+        $currUser = Auth::user();
+
+        $message = 'Not Signed In!';
+        if ($currUser) {
+            $message = 'Signed In';
+        }
+
+        return response()->json([
+            "message" => $message,
+            "currUser" => $currUser
+        ]);
+    }
 }
