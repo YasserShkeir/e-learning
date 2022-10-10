@@ -38,7 +38,7 @@ const FormData = ({ state }) => {
     const data = await res.json();
 
     if (data.authorisation.token) {
-      localStorage.setItem("id", data.user._id);
+      localStorage.setItem("currUser", JSON.stringify(data.user));
       localStorage.setItem("jwt", data.authorisation.token);
       successRouter(data.user.userType);
     }
@@ -64,7 +64,7 @@ const FormData = ({ state }) => {
     const data = await res.json();
 
     if (data.authorisation.token) {
-      localStorage.setItem("id", data.user._id);
+      localStorage.setItem("currUser", JSON.stringify(data.user));
       localStorage.setItem("jwt", data.authorisation.token);
       successRouter(data.user.userType);
     }
