@@ -58,6 +58,7 @@ class AdminController extends Controller
         if ($currUser['userType'] == 1) {
             // Add Admin
             if ($request['userType'] == 1) {
+                $user->userType = $request['userType'];
                 $user->save();
                 $message = 'Added Admin';
             }
