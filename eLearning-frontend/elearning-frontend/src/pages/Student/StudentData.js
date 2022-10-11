@@ -5,6 +5,7 @@ import StudentAssignments from "./StudentGetAssignments";
 
 const StudentData = ({ option }) => {
   const [selectState, setSelectState] = useState(false);
+  const [selectData, setSelectData] = useState("");
 
   const getAssignment = async () => {
     let assID = document.getElementById("getAssID");
@@ -19,6 +20,9 @@ const StudentData = ({ option }) => {
       }
     );
     const data = await res.json();
+    setSelectState(true);
+    setSelectData(data);
+    console.log(data);
   };
 
   if (localStorage.getItem("jwt")) {
@@ -33,7 +37,7 @@ const StudentData = ({ option }) => {
               onClick={getAssignment}
             />
           </div>
-          <StudentAssignments option={selectState} data={""} />
+          <StudentAssignments option={selectState} data={selectData} />
         </div>
       );
     }
