@@ -21,7 +21,15 @@ const AdminGetUsers = ({ option, data }) => {
             );
           })
         ) : (
-          <p>{data.Data.name}</p>
+          <div key={data.Data._id}>
+            <AdminUserCard
+              name={data.Data.name}
+              email={data.Data.email}
+              id={data.Data._id}
+              userType={data.Data.userType}
+              created_at={data.Data.created_at}
+            />
+          </div>
         )}
       </>
     );
