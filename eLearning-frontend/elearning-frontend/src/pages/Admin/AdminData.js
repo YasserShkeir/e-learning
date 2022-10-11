@@ -2,9 +2,11 @@ import classes from "./Admin.module.css";
 import FormRow from "../../components/signIn/FormRow";
 import { useState } from "react";
 import AdminGetUsers from "./AdminGetUsers";
+import axios from "axios";
 
 const AdminData = ({ option }) => {
   const [selectState, setSelectState] = useState(false);
+  const [userTypeState, setUserTypeState] = useState(0);
   const [userData, setUserData] = useState("");
 
   const callGetUsers = async () => {
@@ -24,8 +26,29 @@ const AdminData = ({ option }) => {
       }
     );
     const data = await res.json();
+    console.log(data);
     setUserData(data);
     setSelectState(!selectState);
+  };
+
+  const callGetSorted = async () => {
+    let getSortedID = document.getElementById("getSortedID");
+
+    const res = await axios
+      .post(
+        "http://127.0.0.1:8000/api/getsorted",
+        { userType: getSortedID.value },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      )
+      .then((response) => {
+        setUserTypeState(getSortedID.value);
+        setUserData(response.data);
+        console.log(userData);
+      });
   };
 
   if (localStorage.getItem("jwt")) {
@@ -45,15 +68,25 @@ const AdminData = ({ option }) => {
     }
     if (option === 1) {
       return (
-        <div>
-          <h1>1</h1>
+        <div className={classes.adminOption}>
+          <h2>Get Sorted Users:</h2>
+          <div className={classes.adminInput}>
+            <label>Sort User:</label>
+            <select onChange={callGetSorted} id="getSortedID">
+              <option value="0">Select...</option>
+              <option value="1">Admins</option>
+              <option value="2">Instructors</option>
+              <option value="3">Students</option>
+            </select>
+          </div>
+          <AdminGetUsers option={userTypeState} data={userData} />
         </div>
       );
     }
     if (option === 2) {
       return (
         <div>
-          <h1>2</h1>
+          <h1>{console.log(userData)}</h1>
         </div>
       );
     }

@@ -15,9 +15,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('getSelf', 'getSelf');
 });
 
+Route::post('getsorted', [AdminController::class, 'getSortedUsers']);
+
 Route::group(["middleware" => "auth:api"], function () {
     Route::controller(AdminController::class)->group(function () {
-        Route::post('getsorted', 'getsorted');
+
         Route::post('addUser', 'addUser');
         Route::get('/getUsers/{id?}', 'getUsers');
         Route::get('/getCourses/{id?}', 'getCourses');
