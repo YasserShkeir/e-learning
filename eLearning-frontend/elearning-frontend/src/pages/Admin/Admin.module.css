@@ -5,6 +5,8 @@
 .spaceBetween {
   display: flex;
   justify-content: space-between;
+  border: 1px solid gray;
+  padding: 10px;
 }
 
 .adminOption {

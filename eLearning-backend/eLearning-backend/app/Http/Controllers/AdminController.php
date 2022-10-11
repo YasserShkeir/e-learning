@@ -101,34 +101,34 @@ class AdminController extends Controller
         $message = 'Cannot Sort';
         $res = 'Error in user Type chosen';
 
-        // if ($currUser['userType'] == 1) {
-        if ($request['userType'] == '1') {
-            $message = 'Sorted Admins';
-            $res = User::raw(
-                function ($collection) {
-                    return $collection->aggregate([['$match' => ['userType' => '1']], ['$sort' => ['name' => 1]]]);
-                }
-            );
+        if ($currUser['userType'] == 1) {
+            if ($request['userType'] == '1') {
+                $message = 'Sorted Admins';
+                $res = User::raw(
+                    function ($collection) {
+                        return $collection->aggregate([['$match' => ['userType' => '1']], ['$sort' => ['name' => 1]]]);
+                    }
+                );
+            }
+            if ($request['userType'] == '2') {
+                $message = 'Sorted Instructors';
+                $res = User::raw(
+                    function ($collection) {
+                        return $collection->aggregate([['$match' => ['userType' => '2']], ['$sort' => ['name' => 1]]]);
+                    }
+                );
+            }
+            if ($request['userType'] == '3') {
+                $message = 'Sorted Students';
+                $res = User::raw(
+                    function ($collection) {
+                        return $collection->aggregate([['$match' => ['userType' => '3']], ['$sort' => ['name' => 1]]]);
+                    }
+                );
+            }
+        } else {
+            $res = 'Not an admin';
         }
-        if ($request['userType'] == '2') {
-            $message = 'Sorted Instructors';
-            $res = User::raw(
-                function ($collection) {
-                    return $collection->aggregate([['$match' => ['userType' => '2']], ['$sort' => ['name' => 1]]]);
-                }
-            );
-        }
-        if ($request['userType'] == '3') {
-            $message = 'Sorted Students';
-            $res = User::raw(
-                function ($collection) {
-                    return $collection->aggregate([['$match' => ['userType' => '3']], ['$sort' => ['name' => 1]]]);
-                }
-            );
-        }
-        // } else {
-        //     $res = 'Not an admin';
-        // }
 
         return response()->json([
             'Message' => $message,

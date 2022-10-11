@@ -1,12 +1,11 @@
 import AdminUserCard from "./AdminUserCard";
 
 const AdminGetUsers = ({ option, data }) => {
-  if (option) {
+  if (option && option != 0) {
     return (
       <>
         {data.Data.length > 1 ? (
           data.Data.map((user) => {
-            // console.log(user.email);
             return (
               <div key={user._id}>
                 <AdminUserCard

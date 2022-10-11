@@ -32,12 +32,12 @@ const AdminData = ({ option }) => {
   };
 
   const callGetSorted = async () => {
-    let getSortedID = document.getElementById("getSortedID");
+    let getUserTypeID = document.getElementById("getUserTypeID");
 
     const res = await axios
       .post(
         "http://127.0.0.1:8000/api/getsorted",
-        { userType: getSortedID.value },
+        { userType: getUserTypeID.value },
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -45,7 +45,7 @@ const AdminData = ({ option }) => {
         }
       )
       .then((response) => {
-        setUserTypeState(getSortedID.value);
+        setUserTypeState(getUserTypeID.value);
         setUserData(response.data);
         console.log(userData);
       });
@@ -72,7 +72,7 @@ const AdminData = ({ option }) => {
           <h2>Get Sorted Users:</h2>
           <div className={classes.adminInput}>
             <label>Sort User:</label>
-            <select onChange={callGetSorted} id="getSortedID">
+            <select onChange={callGetSorted} id="getUserTypeID">
               <option value="0">Select...</option>
               <option value="1">Admins</option>
               <option value="2">Instructors</option>
@@ -85,8 +85,18 @@ const AdminData = ({ option }) => {
     }
     if (option === 2) {
       return (
-        <div>
-          <h1>{console.log(userData)}</h1>
+        <div className={classes.adminOption}>
+          <h2>Add User:</h2>
+          <div className={classes.adminInput}>
+            <label>Select User Type to be Added:</label>
+            <select onChange={"x"} id="getUserTypeID">
+              <option value="0">Select...</option>
+              <option value="1">Admin</option>
+              <option value="2">Instructor</option>
+              <option value="3">Student</option>
+            </select>
+          </div>
+          <AdminGetUsers option={selectState} data={userData} />
         </div>
       );
     }
