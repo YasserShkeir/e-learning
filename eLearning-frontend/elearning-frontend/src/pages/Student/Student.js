@@ -13,7 +13,7 @@ const StudentPage = () => {
   };
 
   const caller = (user) => {
-    if (localStorage.getItem("jwt") && user._id && user.userType == 1) {
+    if (localStorage.getItem("jwt") && user._id && user.userType == 3) {
       return (
         <div>
           <h1>Welcome Back, {user.name}</h1>
