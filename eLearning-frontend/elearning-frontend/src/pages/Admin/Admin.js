@@ -2,9 +2,7 @@ import { useState, React } from "react";
 import { Navigate } from "react-router-dom";
 import StateButton from "../../components/signIn/stateButton";
 import classes from "./Admin.module.css";
-import FormRow from "../../components/signIn/FormRow";
 import AdminData from "./AdminData";
-import axios from "axios";
 
 function AdminPage() {
   const [selectState, setSelectState] = useState(0);
