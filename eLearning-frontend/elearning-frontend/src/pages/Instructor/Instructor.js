@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StateButton from "../../components/signIn/stateButton";
 import InstructorData from "./InstructorData";
+import { Navigate } from "react-router-dom";
 
 const InstructorPage = () => {
   const [selectState, setSelectState] = useState(0);
@@ -53,6 +54,7 @@ const InstructorPage = () => {
         </div>
       );
     }
+    return <Navigate replace to="/" />;
   };
 
   let res = localStorage.getItem("currUser");
