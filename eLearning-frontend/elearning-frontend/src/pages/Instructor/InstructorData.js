@@ -107,6 +107,31 @@ const InstructorData = ({ option }) => {
       </div>
     );
   }
+
+  if (option === 2) {
+    return (
+      <div>
+        <h2>Create Assignment:</h2>
+        <FormRow
+          title="Assignment Title"
+          inpType="text"
+          inpName="addAssTitle"
+        />
+        <FormRow
+          title="Assignment Course Code"
+          inpType="text"
+          inpName="addAssCourse"
+        />
+        <FormRow title="Tasks" inpType="text" inpName="addAssTasks" />
+        <FormRow title="Due Date" inpType="date" inpName="addAssDate" />
+
+        <StateButton
+          text={"Update Courses"}
+          onClick={updateStudentController}
+        />
+      </div>
+    );
+  }
 };
 
 export default InstructorData;
