@@ -2,6 +2,7 @@ import classes from "./Admin.module.css";
 import FormRow from "../../components/signIn/FormRow";
 import { useState } from "react";
 import AdminGetUsers from "./AdminGetUsers";
+import AdminAddUser from "./AdminAddUser";
 import axios from "axios";
 
 const AdminData = ({ option }) => {
@@ -47,8 +48,12 @@ const AdminData = ({ option }) => {
       .then((response) => {
         setUserTypeState(getUserTypeID.value);
         setUserData(response.data);
-        console.log(userData);
       });
+  };
+
+  const userAdderHandler = async () => {
+    let addUserTypeID = document.getElementById("addUserTypeID");
+    setUserTypeState(addUserTypeID.value);
   };
 
   if (localStorage.getItem("jwt")) {
@@ -73,7 +78,7 @@ const AdminData = ({ option }) => {
           <div className={classes.adminInput}>
             <label>Sort User:</label>
             <select onChange={callGetSorted} id="getUserTypeID">
-              <option value="0">Select...</option>
+              <option value={userTypeState}>Select...</option>
               <option value="1">Admins</option>
               <option value="2">Instructors</option>
               <option value="3">Students</option>
@@ -89,14 +94,14 @@ const AdminData = ({ option }) => {
           <h2>Add User:</h2>
           <div className={classes.adminInput}>
             <label>Select User Type to be Added:</label>
-            <select onChange={"x"} id="getUserTypeID">
-              <option value="0">Select...</option>
+            <select onChange={userAdderHandler} id="addUserTypeID">
+              <option value={userTypeState}>Select...</option>
               <option value="1">Admin</option>
               <option value="2">Instructor</option>
               <option value="3">Student</option>
             </select>
           </div>
-          <AdminGetUsers option={selectState} data={userData} />
+          <AdminAddUser option={userTypeState} />
         </div>
       );
     }
