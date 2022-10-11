@@ -1,4 +1,5 @@
 import { useState } from "react";
+import StateButton from "../../components/signIn/stateButton";
 
 const InstructorPage = () => {
   const [selectState, setSelectState] = useState(0);
@@ -32,7 +33,21 @@ const InstructorPage = () => {
       return (
         <div>
           <h1>Welcome Back, {user.name}</h1>
-          <div>Good</div>
+          <div>
+            <StateButton text={"Add Student"} onClick={displayAddStudent} />
+            <StateButton
+              text={"Update Student Course"}
+              onClick={displayUpdStudentCourse}
+            />
+            <StateButton
+              text={"Create Assignment"}
+              onClick={displayCreateAssignment}
+            />
+            <StateButton
+              text={"Create Announcement"}
+              onClick={displayCreateAnnouncement}
+            />
+          </div>
         </div>
       );
     }
