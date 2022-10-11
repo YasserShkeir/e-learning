@@ -47,6 +47,28 @@ const InstructorData = ({ option }) => {
       });
   };
 
+  const addAssignmentController = async () => {
+    let data = {
+      title: document.getElementById("addAssTitle").value,
+      courseCode: document.getElementById("addAssCourse").value,
+      dueDate: document.getElementById("addAssDate").value,
+      tasks: document.getElementById("addAssTasks").value,
+    };
+
+    const res = await axios
+      .post("http://127.0.0.1:8000/api/createAssignment", data, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   if (option === 0) {
     return (
       <div>
@@ -127,7 +149,7 @@ const InstructorData = ({ option }) => {
 
         <StateButton
           text={"Update Courses"}
-          onClick={updateStudentController}
+          onClick={addAssignmentController}
         />
       </div>
     );
