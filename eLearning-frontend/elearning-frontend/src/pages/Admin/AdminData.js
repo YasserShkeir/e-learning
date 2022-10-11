@@ -6,7 +6,8 @@ import AdminAddUser from "./AdminAddUser";
 import axios from "axios";
 
 const AdminData = ({ option }) => {
-  const [selectState, setSelectState] = useState(false);
+  const [selectUState, setSelectUState] = useState(false);
+  const [selectCState, setSelectCState] = useState(false);
   const [userTypeState, setUserTypeState] = useState(0);
   const [userData, setUserData] = useState("");
 
@@ -29,7 +30,7 @@ const AdminData = ({ option }) => {
     const data = await res.json();
     console.log(data);
     setUserData(data);
-    setSelectState(!selectState);
+    setSelectUState(!selectUState);
   };
 
   const callGetSorted = async () => {
@@ -56,6 +57,29 @@ const AdminData = ({ option }) => {
     setUserTypeState(addUserTypeID.value);
   };
 
+  const callGetCourses = async () => {
+    let courseID = document.getElementById("getCoursesID");
+
+    if (courseID.value) {
+      courseID.value = "/" + courseID.value;
+    }
+
+    const res = await fetch(
+      `http://127.0.0.1:8000/api/getCourses${courseID.value}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    // setUserData(data);
+    setSelectCState(!selectCState);
+  };
+
   if (localStorage.getItem("jwt")) {
     if (option === 0) {
       return (
@@ -64,10 +88,10 @@ const AdminData = ({ option }) => {
           <div className={classes.adminInput}>
             <FormRow title="User ID" inpType="text" inpName="getUsersID" />
             <button onClick={callGetUsers}>
-              {!selectState ? <>Search ID</> : <>Hide</>}
+              {!selectUState ? <>Search ID</> : <>Hide</>}
             </button>
           </div>
-          <AdminGetUsers option={selectState} data={userData} />
+          <AdminGetUsers option={selectUState} data={userData} />
         </div>
       );
     }
@@ -108,7 +132,19 @@ const AdminData = ({ option }) => {
     if (option === 3) {
       return (
         <div>
-          <h1>3</h1>
+          <div className={classes.adminOption}>
+            <h2>Get Courses:</h2>
+            <div className={classes.adminInput}>
+              <FormRow
+                title="Course ID"
+                inpType="text"
+                inpName="getCoursesID"
+              />
+              <button onClick={callGetCourses}>
+                {!selectCState ? <>Search ID</> : <>Hide</>}
+              </button>
+            </div>
+          </div>
         </div>
       );
     }
