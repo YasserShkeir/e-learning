@@ -30,8 +30,8 @@ Route::group(["middleware" => "auth:api"], function () {
     Route::controller(InstructorController::class)->group(function () {
         Route::post('addStudent', 'addStudent'); // Done
         Route::post('updateStudentCourses', 'updateStudentCourses'); // Done
-        Route::post('createAssignment', 'createAssignment');
-        Route::post('createAnnouncement', 'createAnnouncement');
+        Route::post('createAssignment', 'createAssignment'); // Done
+        Route::post('createAnnouncement', 'createAnnouncement'); // Done
     });
 
     Route::controller(StudentController::class)->group(function () {

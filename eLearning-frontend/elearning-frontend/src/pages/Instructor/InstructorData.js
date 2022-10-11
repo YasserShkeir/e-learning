@@ -69,6 +69,27 @@ const InstructorData = ({ option }) => {
       });
   };
 
+  const addAnnouncementController = async () => {
+    let data = {
+      title: document.getElementById("addAnnTitle").value,
+      courseCode: document.getElementById("addAnnCourse").value,
+      text: document.getElementById("addAnnTasks").value,
+    };
+
+    const res = await axios
+      .post("http://127.0.0.1:8000/api/createAnnouncement", data, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   if (option === 0) {
     return (
       <div>
@@ -150,6 +171,30 @@ const InstructorData = ({ option }) => {
         <StateButton
           text={"Update Courses"}
           onClick={addAssignmentController}
+        />
+      </div>
+    );
+  }
+
+  if (option === 3) {
+    return (
+      <div>
+        <h2>Create Announcement:</h2>
+        <FormRow
+          title="Announcement Title"
+          inpType="text"
+          inpName="addAnnTitle"
+        />
+        <FormRow
+          title="Assignment Course Code"
+          inpType="text"
+          inpName="addAnnCourse"
+        />
+        <FormRow title="Text" inpType="text" inpName="addAnnTasks" />
+
+        <StateButton
+          text={"Update Courses"}
+          onClick={addAnnouncementController}
         />
       </div>
     );
