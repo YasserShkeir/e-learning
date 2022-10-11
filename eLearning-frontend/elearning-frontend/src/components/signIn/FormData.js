@@ -40,6 +40,12 @@ const FormData = ({ state }) => {
     if (data.authorisation.token) {
       localStorage.setItem("currUser", JSON.stringify(data.user));
       localStorage.setItem("jwt", data.authorisation.token);
+
+      // Add an expiration time that matches server expiration (2 hours)
+      localStorage.setItem(
+        "jwtExpire",
+        new Date().getTime() + 2 * 60 * 60 * 1000
+      );
       successRouter(data.user.userType);
     }
   };
@@ -66,6 +72,12 @@ const FormData = ({ state }) => {
     if (data.authorisation.token) {
       localStorage.setItem("currUser", JSON.stringify(data.user));
       localStorage.setItem("jwt", data.authorisation.token);
+
+      // Add an expiration time that matches server expiration (2 hours)
+      localStorage.setItem(
+        "jwtExpire",
+        new Date().getTime() + 2 * 60 * 60 * 1000
+      );
       successRouter(data.user.userType);
     }
   };

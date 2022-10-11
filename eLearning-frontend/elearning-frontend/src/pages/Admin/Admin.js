@@ -40,7 +40,7 @@ function AdminPage() {
   };
 
   const caller = (user) => {
-    if (user._id && user.userType == 1) {
+    if (localStorage.getItem("jwt") && user._id && user.userType == 1) {
       return (
         <div className={classes.adminContent}>
           <h1>Welcome Back, {user.name}</h1>

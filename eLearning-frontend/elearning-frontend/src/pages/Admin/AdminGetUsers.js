@@ -4,7 +4,6 @@ const AdminGetUsers = ({ option, data }) => {
   if (option) {
     return (
       <>
-        {console.log(data.Data)}
         {data.Data.length > 1 ? (
           data.Data.map((user) => {
             // console.log(user.email);
