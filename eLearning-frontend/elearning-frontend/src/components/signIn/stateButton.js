@@ -1,8 +1,9 @@
 import { React } from "react";
+import classes from "./stateButton.module.css";
 
 const StateButton = ({ text, onClick }) => {
   return (
-    <button className="btn" onClick={onClick}>
+    <button className={classes.btn} onClick={onClick}>
       {text}
     </button>
   );

@@ -111,9 +111,10 @@ const AdminData = ({ option }) => {
           <h2>Get Users:</h2>
           <div className={classes.adminInput}>
             <FormRow title="User ID" inpType="text" inpName="getUsersID" />
-            <button onClick={callGetUsers}>
-              {!selectUState ? <>Search ID</> : <>Hide</>}
-            </button>
+            <StateButton
+              text={!selectUState ? <>Search ID</> : <>Hide</>}
+              onClick={callGetUsers}
+            />
           </div>
           <AdminGetUsers option={selectUState} data={userData} />
         </div>
@@ -170,9 +171,10 @@ const AdminData = ({ option }) => {
                 inpType="text"
                 inpName="getCoursesID"
               />
-              <button onClick={callGetCourses}>
-                {!selectCState ? <>Search ID</> : <>Hide</>}
-              </button>
+              <StateButton
+                text={!selectCState ? <>Search ID</> : <>Hide</>}
+                onClick={callGetCourses}
+              />
             </div>
           </div>
           <AdminGetCourses option={selectCState} data={courseData} />

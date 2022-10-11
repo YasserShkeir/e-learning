@@ -1,7 +1,7 @@
 import classes from "./MainNavigation.module.css";
 import StateButton from "../signIn/stateButton";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function MainNavigation() {
   const [selectState, setSelectState] = useState(false);

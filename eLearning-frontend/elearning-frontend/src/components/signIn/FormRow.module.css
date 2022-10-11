@@ -10,3 +10,21 @@
   margin: 10px;
   max-width: 300px;
 }
+
+label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  background-color: rgb(160, 160, 160);
+  border: 3px solid black;
+  color: black;
+  font-weight: 500;
+}
+
+input::placeholder {
+  color: white;
+}

@@ -1,5 +1,12 @@
 .btn {
   min-width: 200px;
   height: 50px;
-  background-color: aqua;
+  background-color: darkslategrey;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 5px 10px;
+  min-height: 35px;
 }
