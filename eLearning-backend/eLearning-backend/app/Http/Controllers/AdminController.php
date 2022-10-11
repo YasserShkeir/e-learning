@@ -174,7 +174,8 @@ class AdminController extends Controller
         $currUser = Auth::user();
         $course = new Course;
 
-        if ($currUser['userType'] != 1) {
+        if ($currUser['userType'] == 1) {
+
             $course->code = $request['code'];
             $course->name = $request['name'];
             $course->credits = $request['credits'];
@@ -183,7 +184,6 @@ class AdminController extends Controller
         } else {
             $message = 'Not an Admin';
         }
-
 
         return response()->json([
             'Message' => $message,

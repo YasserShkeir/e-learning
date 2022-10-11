@@ -4,6 +4,7 @@ import { useState } from "react";
 import AdminGetUsers from "./AdminGetUsers";
 import AdminAddUser from "./AdminAddUser";
 import AdminGetCourses from "./AdminGetCourses";
+import StateButton from "../../components/signIn/stateButton";
 import axios from "axios";
 
 const AdminData = ({ option }) => {
@@ -71,6 +72,29 @@ const AdminData = ({ option }) => {
     const data = await res.json();
     setCourseData(data);
     setSelectCState(!selectCState);
+  };
+
+  const addCourseCaller = async () => {
+    let data = {
+      code: document.getElementById("addCourseCode").value,
+      name: document.getElementById("addCourseName").value,
+      credits: parseInt(document.getElementById("addCourseCredits").value),
+    };
+
+    console.log(data);
+
+    const res = await axios
+      .post("http://127.0.0.1:8000/api/addCourse", data, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   if (localStorage.getItem("jwt")) {
@@ -144,8 +168,26 @@ const AdminData = ({ option }) => {
     }
     if (option === 4) {
       return (
-        <div>
-          <h1>4</h1>
+        <div className={classes.adminOption}>
+          <h2>Add Course:</h2>
+          <div className={classes.adminInput}>
+            <FormRow
+              title="Add Course Code"
+              inpType="text"
+              inpName="addCourseCode"
+            />
+            <FormRow
+              title="Add Course Name"
+              inpType="text"
+              inpName="addCourseName"
+            />
+            <FormRow
+              title="Add Course Credits"
+              inpType="number"
+              inpName="addCourseCredits"
+            />
+            <StateButton text={"Add Course"} onClick={addCourseCaller} />
+          </div>
         </div>
       );
     }
