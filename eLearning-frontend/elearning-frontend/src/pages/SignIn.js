@@ -6,6 +6,8 @@ import FormData from "../components/signIn/FormData";
 function SignInPage() {
   const [selectState, setSelectState] = useState(false);
 
+  localStorage.clear();
+
   const displaySignIn = () => {
     if (!selectState) {
       setSelectState(!selectState);
