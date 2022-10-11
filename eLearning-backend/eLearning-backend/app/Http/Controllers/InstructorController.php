@@ -56,7 +56,6 @@ class InstructorController extends Controller
             ]);
 
             $id = $request['id'];
-            $type = $request['type'];
             $message = "Unaffected";
             $student = User::find($id);
             if ($student['userType'] == 3) {

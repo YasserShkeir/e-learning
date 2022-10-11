@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StateButton from "../../components/signIn/stateButton";
+import InstructorData from "./InstructorData";
 
 const InstructorPage = () => {
   const [selectState, setSelectState] = useState(0);
@@ -48,6 +49,7 @@ const InstructorPage = () => {
               onClick={displayCreateAnnouncement}
             />
           </div>
+          <InstructorData option={selectState} />
         </div>
       );
     }
