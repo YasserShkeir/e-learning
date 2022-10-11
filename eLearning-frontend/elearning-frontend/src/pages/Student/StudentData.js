@@ -7,10 +7,10 @@ const StudentData = ({ option }) => {
   const [selectState, setSelectState] = useState(false);
 
   const getAssignment = async () => {
-    let userID = document.getElementById("getUsersID");
+    let assID = document.getElementById("getAssID");
 
     const res = await fetch(
-      `http://127.0.0.1:8000/api/getUsers/${userID.value}`,
+      `http://127.0.0.1:8000/api/viewAssignment/${assID.value}`,
       {
         method: "GET",
         headers: {

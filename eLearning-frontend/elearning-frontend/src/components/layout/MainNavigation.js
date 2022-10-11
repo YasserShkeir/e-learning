@@ -24,7 +24,6 @@ function MainNavigation() {
   return (
     <header>
       <div>E-Learning Portal</div>
-      {localStorage.getItem("jwt") ? console.log("here") : console.log("not")}
       {logoutDisplayer()}
     </header>
   );
