@@ -3,6 +3,7 @@ import FormRow from "../../components/signIn/FormRow";
 import { useState } from "react";
 import AdminGetUsers from "./AdminGetUsers";
 import AdminAddUser from "./AdminAddUser";
+import AdminGetCourses from "./AdminGetCourses";
 import axios from "axios";
 
 const AdminData = ({ option }) => {
@@ -10,16 +11,13 @@ const AdminData = ({ option }) => {
   const [selectCState, setSelectCState] = useState(false);
   const [userTypeState, setUserTypeState] = useState(0);
   const [userData, setUserData] = useState("");
+  const [courseData, setCourseData] = useState("");
 
   const callGetUsers = async () => {
     let userID = document.getElementById("getUsersID");
 
-    if (userID.value) {
-      userID.value = "/" + userID.value;
-    }
-
     const res = await fetch(
-      `http://127.0.0.1:8000/api/getUsers${userID.value}`,
+      `http://127.0.0.1:8000/api/getUsers/${userID.value}`,
       {
         method: "GET",
         headers: {
@@ -60,12 +58,8 @@ const AdminData = ({ option }) => {
   const callGetCourses = async () => {
     let courseID = document.getElementById("getCoursesID");
 
-    if (courseID.value) {
-      courseID.value = "/" + courseID.value;
-    }
-
     const res = await fetch(
-      `http://127.0.0.1:8000/api/getCourses${courseID.value}`,
+      `http://127.0.0.1:8000/api/getCourses/${courseID.value}`,
       {
         method: "GET",
         headers: {
@@ -75,8 +69,7 @@ const AdminData = ({ option }) => {
     );
 
     const data = await res.json();
-    console.log(data);
-    // setUserData(data);
+    setCourseData(data);
     setSelectCState(!selectCState);
   };
 
@@ -145,6 +138,7 @@ const AdminData = ({ option }) => {
               </button>
             </div>
           </div>
+          <AdminGetCourses option={selectCState} data={courseData} />
         </div>
       );
     }
