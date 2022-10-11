@@ -25,6 +25,7 @@
 
 .userCard {
   width: 100%;
+  min-width: 500px;
   min-height: 80px;
   border: 1px solid black;
   margin: 10px;

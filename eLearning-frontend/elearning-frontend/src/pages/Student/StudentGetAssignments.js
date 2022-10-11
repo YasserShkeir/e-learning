@@ -10,8 +10,8 @@ const StudentAssignments = ({ option, data }) => {
             return (
               <div key={user._id}>
                 <AdminUserCard
-                  name={user.name}
-                  email={user.email}
+                  name={user.courseCode}
+                  email={user.instructorName}
                   id={user._id}
                   userType={user.userType}
                   created_at={user.created_at}
