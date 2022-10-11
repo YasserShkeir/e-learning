@@ -1,6 +1,12 @@
+.rowContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .row {
   display: flex;
   flex-direction: column;
   text-align: left;
   margin: 10px;
+  max-width: 300px;
 }

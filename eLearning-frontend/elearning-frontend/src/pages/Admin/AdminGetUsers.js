@@ -1,7 +1,7 @@
 import AdminUserCard from "./AdminUserCard";
 
 const AdminGetUsers = ({ option, data }) => {
-  if (option && option != 0) {
+  if (option) {
     return (
       <>
         {data.Data.length > 1 ? (

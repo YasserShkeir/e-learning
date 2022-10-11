@@ -1,9 +1,7 @@
-import { useContext } from "react";
-
 import classes from "./MainNavigation.module.css";
 
 function MainNavigation() {
-  return <header>Test</header>;
+  return <header>E-Learning Portal</header>;
 }
 
 export default MainNavigation;
