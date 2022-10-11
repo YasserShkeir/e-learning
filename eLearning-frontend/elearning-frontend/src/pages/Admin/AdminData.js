@@ -8,12 +8,14 @@ import StateButton from "../../components/signIn/stateButton";
 import axios from "axios";
 
 const AdminData = ({ option }) => {
+  // Create all the required Use States for all Admin Functionalities
   const [selectUState, setSelectUState] = useState(false);
   const [selectCState, setSelectCState] = useState(false);
   const [userTypeState, setUserTypeState] = useState(0);
   const [userData, setUserData] = useState("");
   const [courseData, setCourseData] = useState("");
 
+  // GetUsers Function Caller
   const callGetUsers = async () => {
     let userID = document.getElementById("getUsersID");
 
@@ -32,6 +34,7 @@ const AdminData = ({ option }) => {
     setSelectUState(!selectUState);
   };
 
+  // GetSortedUsers Function Caller
   const callGetSorted = async () => {
     let getUserTypeID = document.getElementById("getUserTypeID");
 
@@ -51,11 +54,13 @@ const AdminData = ({ option }) => {
       });
   };
 
+  // AddUser Function Handler
   const userAdderHandler = async () => {
     let addUserTypeID = document.getElementById("addUserTypeID");
     setUserTypeState(addUserTypeID.value);
   };
 
+  // GetCourses Function Caller
   const callGetCourses = async () => {
     let courseID = document.getElementById("getCoursesID");
 
@@ -74,6 +79,7 @@ const AdminData = ({ option }) => {
     setSelectCState(!selectCState);
   };
 
+  // AddCourse Function Caller
   const addCourseCaller = async () => {
     let data = {
       code: document.getElementById("addCourseCode").value,
@@ -98,6 +104,7 @@ const AdminData = ({ option }) => {
   };
 
   if (localStorage.getItem("jwt")) {
+    // If Get users is chosen
     if (option === 0) {
       return (
         <div className={classes.adminOption}>
@@ -112,6 +119,8 @@ const AdminData = ({ option }) => {
         </div>
       );
     }
+
+    // If Get sorted users is chosen
     if (option === 1) {
       return (
         <div className={classes.adminOption}>
@@ -129,6 +138,8 @@ const AdminData = ({ option }) => {
         </div>
       );
     }
+
+    // If Add user is chosen
     if (option === 2) {
       return (
         <div className={classes.adminOption}>
@@ -146,6 +157,8 @@ const AdminData = ({ option }) => {
         </div>
       );
     }
+
+    // If Get courses is chosen
     if (option === 3) {
       return (
         <div>
@@ -166,6 +179,8 @@ const AdminData = ({ option }) => {
         </div>
       );
     }
+
+    // If Add course is chosen
     if (option === 4) {
       return (
         <div className={classes.adminOption}>
