@@ -13,8 +13,12 @@ const FormData = ({ state }) => {
     }
     if (userType == 2) {
       console.log("Going to Instructor Portal...");
+      navigate("/instructor");
+      <Navigate replace to="/instructor" />;
     }
     if (userType == 3) {
+      navigate("/student");
+      <Navigate replace to="/student" />;
       console.log("Going to Student Portal...");
     }
   };
